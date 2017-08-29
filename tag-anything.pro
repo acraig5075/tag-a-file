@@ -1,0 +1,32 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2017-08-26T18:08:59
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets sql
+
+TARGET = tag-anything
+TEMPLATE = app
+
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
+    editpage.cpp \
+    searchpage.cpp \
+    taglineedit.cpp \
+    taglistwidget.cpp \
+    dataaccess.cpp
+
+HEADERS  += mainwindow.h \
+    editpage.h \
+    searchpage.h \
+    taglineedit.h \
+    taglistwidget.h \
+    dataaccess.h
+
+FORMS    += mainwindow.ui \
+    editpage.ui \
+    searchpage.ui
