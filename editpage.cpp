@@ -42,4 +42,9 @@ void EditPage::on_pushButton_clicked()
     QStringList tags = ui->tagList->toStringList();
 
     m_dal.InsertOrUpdate(item, tags);
+
+    ui->lineEdit->clear();
+    ui->tagEdit->clear();
+    ui->tagList->clear();
+    ui->lineEdit->setFocus();
 }
