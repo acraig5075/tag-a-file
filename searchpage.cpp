@@ -2,6 +2,7 @@
 #include "dataaccess.h"
 #include "ui_searchpage.h"
 #include <QDebug>
+#include <QStringListModel>
 
 SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
@@ -9,6 +10,10 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     m_dal(dal)
 {
     ui->setupUi(this);
+
+    m_model = new QStringListModel(this);
+
+    QObject::connect(ui->tagList, SIGNAL(tagSelectionChanged()), this, SLOT(updateResultView()));
 }
 
 SearchPage::~SearchPage()
@@ -44,6 +49,6 @@ void SearchPage::updateResultView()
     QStringList tags = ui->tagList->toStringList();
     QStringList results = m_dal.QueryTags(tags);
 
-    for (QString r : results)
-        qDebug() << r;
+    m_model->setStringList(results);
+    ui->resultView->setModel(m_model);
 }

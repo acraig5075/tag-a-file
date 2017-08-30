@@ -4,6 +4,8 @@
 #include <QWidget>
 
 class DataAccess;
+class QStringListModel;
+
 
 namespace Ui {
 class SearchPage;
@@ -17,7 +19,7 @@ public:
     explicit SearchPage(DataAccess &dal, QWidget *parent = 0);
     ~SearchPage();
 
-private:
+public slots:
     void updateResultView();
 
 private slots:
@@ -26,6 +28,7 @@ private slots:
 private:
     Ui::SearchPage *ui;
     DataAccess &m_dal;
+    QStringListModel *m_model = nullptr;
 };
 
 #endif // SEARCHPAGE_H

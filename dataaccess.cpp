@@ -62,7 +62,7 @@ QString toCsv(const QStringList &tagList)
 QStringList DataAccess::QueryTags(const QStringList &tagList)
 {
     QString csv = toCsv(tagList);
-    QString string = QString("SELECT `content` "
+    QString string = QString("SELECT DISTINCT `content` "
                              "FROM `items` "
                              "INNER JOIN `item_tag_map` ON items.id=item_tag_map.item_id "
                              "INNER JOIN tags ON tags.id=item_tag_map.tag_id "

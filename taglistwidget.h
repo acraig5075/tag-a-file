@@ -16,6 +16,8 @@ public slots:
     void showContextMenu(const QPoint&);
     void removeSelectedItem();
 
+signals:
+    void tagSelectionChanged();
 };
 
 #endif // TAGLISTWIDGET_H

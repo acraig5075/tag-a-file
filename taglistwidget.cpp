@@ -26,6 +26,8 @@ void TagListWidget::removeSelectedItem()
     {
         QListWidgetItem *item = selection[0];
         delete item;
+
+        emit tagSelectionChanged();
     }
 }
 
