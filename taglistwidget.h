@@ -9,7 +9,10 @@ class TagListWidget : public QListWidget
 public:
     explicit TagListWidget(QWidget *parent = 0);
 
+    void addTagItem(const QString &tag);
+
     QStringList toStringList();
+
 signals:
 
 public slots:
@@ -17,7 +20,8 @@ public slots:
     void removeSelectedItem();
 
 signals:
-    void tagSelectionChanged();
+    void tagListAddition();
+    void tagListDeletion();
 };
 
 #endif // TAGLISTWIDGET_H

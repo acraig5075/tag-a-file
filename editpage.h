@@ -18,8 +18,6 @@ public:
     ~EditPage();
 
 private slots:
-    void on_tagEdit_returnPressed();
-
     void on_pushButton_clicked();
 
 private:

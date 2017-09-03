@@ -22,9 +22,6 @@ public:
 public slots:
     void updateResultView();
 
-private slots:
-    void on_tagEdit_returnPressed();
-
 private:
     Ui::SearchPage *ui;
     DataAccess &m_dal;

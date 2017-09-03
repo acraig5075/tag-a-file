@@ -19,6 +19,13 @@ void TagListWidget::showContextMenu(const QPoint &pos)
     myMenu.exec(globalPos);
 }
 
+void TagListWidget::addTagItem(const QString &tag)
+{
+    this->addItem(tag);
+
+    emit tagListAddition();
+}
+
 void TagListWidget::removeSelectedItem()
 {
     QList<QListWidgetItem *> selection = selectedItems();
@@ -27,7 +34,7 @@ void TagListWidget::removeSelectedItem()
         QListWidgetItem *item = selection[0];
         delete item;
 
-        emit tagSelectionChanged();
+        emit tagListDeletion();
     }
 }
 
