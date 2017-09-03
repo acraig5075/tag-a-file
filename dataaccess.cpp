@@ -76,6 +76,23 @@ QStringList DataAccess::QueryTags(const QStringList &tagList)
     return result;
 }
 
+QStringList DataAccess::QueryFile(const QString &fileName)
+{
+    QString string = QString("SELECT `title` "
+                             "FROM `tags` "
+                             "INNER JOIN `item_tag_map` ON tags.id=item_tag_map.tag_id "
+                             "INNER JOIN `items` ON items.id=item_tag_map.item_id "
+                             "WHERE items.content='%1'").arg(fileName);
+
+    QStringList result;
+    QSqlQuery query(string);
+    while (query.next())
+        result.push_back(query.value(0).toString());
+
+    return result;
+
+}
+
 void DataAccess::ExecQuery(const QString &string)
 {
     if (m_db.isOpen())
@@ -166,15 +183,3 @@ int DataAccess::GetTagID(const QString &tag)
     return ExecScalar(string);
 }
 
-/*
-SELECT last_insert_rowid();
-
--- show tags for a given filename
-
-SELECT title
-FROM tags
-INNER JOIN item_tag_map ON tags.id=item_tag_map.tag_id
-INNER JOIN items ON items.id=item_tag_map.item_id
-WHERE items.content='H:\Storm\Infraburo'
-
-*/

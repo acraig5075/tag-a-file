@@ -11,6 +11,7 @@ public:
     void OpenOrCreate();
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
     QStringList QueryTags(const QStringList &tagList);
+    QStringList QueryFile(const QString &fileName);
 
 private:
     void ExecQuery(const QString &string);

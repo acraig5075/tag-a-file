@@ -21,6 +21,8 @@ private slots:
     void on_browseButton_clicked();
     void on_pushButton_clicked();
 
+    void resetTagList(const QString &filename);
+
 private:
     Ui::EditPage *ui;
     DataAccess &m_dal;

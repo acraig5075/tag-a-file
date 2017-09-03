@@ -22,7 +22,21 @@ void EditPage::on_browseButton_clicked()
     QString filename = QFileDialog::getOpenFileName(this, "Select File", "", "");
 
     if (!filename.isEmpty())
+    {
         ui->lineEdit->setText(filename);
+        resetTagList(filename);
+    }
+}
+
+void EditPage::resetTagList(const QString &filename)
+{
+    ui->tagList->clear();
+
+    if (!filename.isEmpty())
+    {
+        QStringList tags = m_dal.QueryFile(filename);
+        ui->tagList->addItems(tags);
+    }
 }
 
 void EditPage::on_pushButton_clicked()
