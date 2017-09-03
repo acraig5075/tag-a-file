@@ -1,6 +1,7 @@
 #include "editpage.h"
 #include "dataaccess.h"
 #include "ui_editpage.h"
+#include "QFileDialog"
 
 EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
@@ -14,6 +15,14 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
 EditPage::~EditPage()
 {
     delete ui;
+}
+
+void EditPage::on_browseButton_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Select File", "", "");
+
+    if (!filename.isEmpty())
+        ui->lineEdit->setText(filename);
 }
 
 void EditPage::on_pushButton_clicked()
