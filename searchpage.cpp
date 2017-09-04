@@ -3,6 +3,8 @@
 #include "ui_searchpage.h"
 #include <QDebug>
 #include <QStringListModel>
+#include <QClipboard>
+
 
 SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
@@ -15,8 +17,12 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
 
     m_model = new QStringListModel(this);
 
+    QAction *clipboardAction = new QAction("Copy to clipboard", this);
+    ui->resultView->addAction(clipboardAction);
+
     QObject::connect(ui->tagList, SIGNAL(tagListDeletion()), this, SLOT(updateResultView()));
     QObject::connect(ui->tagList, SIGNAL(tagListAddition()), this, SLOT(updateResultView()));
+    QObject::connect(clipboardAction, SIGNAL(triggered(bool)), this, SLOT(copyToClipboard()));
 }
 
 SearchPage::~SearchPage()
@@ -31,4 +37,23 @@ void SearchPage::updateResultView()
 
     m_model->setStringList(results);
     ui->resultView->setModel(m_model);
+}
+
+void SearchPage::copyToClipboard()
+{
+    QString filename;
+
+    QItemSelectionModel *selection = ui->resultView->selectionModel();
+    if (selection && selection->hasSelection())
+    {
+        QModelIndexList indices = selection->selectedIndexes();
+        if (indices.size() > 0)
+        {
+            QVariant data = m_model->data(indices[0], Qt::DisplayRole);
+            filename = data.toString();
+        }
+    }
+
+    if (!filename.isEmpty())
+        QApplication::clipboard()->setText(filename);
 }

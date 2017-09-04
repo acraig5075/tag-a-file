@@ -85,7 +85,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QListView" name="resultView"/>
+         <widget class="QListView" name="resultView">
+          <property name="contextMenuPolicy">
+           <enum>Qt::ActionsContextMenu</enum>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
