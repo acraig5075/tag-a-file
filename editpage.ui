@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>434</width>
-    <height>284</height>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,24 +20,6 @@
       <string/>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLineEdit" name="lineEdit">
-          <property name="placeholderText">
-           <string>Enter, browse, or drag and drop</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="browseButton">
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -82,6 +64,13 @@
        </layout>
       </item>
       <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Tag list:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="TagListWidget" name="tagList">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -102,6 +91,31 @@
          <enum>QListView::LeftToRight</enum>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Filename:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="placeholderText">
+           <string>Supports drag and drop</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="browseButton">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
