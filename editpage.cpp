@@ -10,6 +10,8 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
+
+    QObject::connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(resetTagList()));
 }
 
 EditPage::~EditPage()
@@ -24,13 +26,15 @@ void EditPage::on_browseButton_clicked()
     if (!filename.isEmpty())
     {
         ui->lineEdit->setText(filename);
-        resetTagList(filename);
+        resetTagList();
     }
 }
 
-void EditPage::resetTagList(const QString &filename)
+void EditPage::resetTagList()
 {
     ui->tagList->clear();
+
+    QString filename = ui->lineEdit->text();
 
     if (!filename.isEmpty())
     {
