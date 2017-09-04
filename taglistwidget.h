@@ -18,6 +18,7 @@ signals:
 public slots:
     void showContextMenu(const QPoint&);
     void removeSelectedItem();
+    void removeAllItems();
 
 signals:
     void tagListAddition();

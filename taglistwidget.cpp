@@ -15,6 +15,7 @@ void TagListWidget::showContextMenu(const QPoint &pos)
 
     QMenu myMenu;
     myMenu.addAction("Delete", this, SLOT(removeSelectedItem()));
+    myMenu.addAction("Delete All", this, SLOT(removeAllItems()));
 
     myMenu.exec(globalPos);
 }
@@ -36,6 +37,13 @@ void TagListWidget::removeSelectedItem()
 
         emit tagListDeletion();
     }
+}
+
+void TagListWidget::removeAllItems()
+{
+    clear();
+
+    emit tagListDeletion();
 }
 
 QStringList TagListWidget::toStringList()
