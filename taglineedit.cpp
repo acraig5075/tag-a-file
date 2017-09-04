@@ -24,7 +24,7 @@ void TagLineEdit::setTagCompleter(const QStringList &list)
         delete m_completer;
 
     m_completer = new QCompleter(list, this);
-    m_completer->setCompletionMode(QCompleter::PopupCompletion);
+    m_completer->setCompletionMode(QCompleter::InlineCompletion);
     m_completer->setModelSorting(QCompleter::UnsortedModel);
     setCompleter(m_completer);
 }

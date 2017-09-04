@@ -11,6 +11,9 @@ static const QString styleSheet =
         "  border: 2px solid #BB7365; "
         "  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 2, stop: 0 #DEADA1, stop: 1 #FFFFFF); "
         "  border-radius: 4px; "
+        "  margin-left: 8px; "
+        "  margin-right: 8px; "
+        "  margin-bottom: 8px; "
         "}"
 
         "QTabWidget::tab-bar { "
@@ -54,7 +57,6 @@ static const QString styleSheet =
         "  background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 2, stop: 0 #B3B3D7, stop: 1 #FFFFFF); "
         "  border: 2px solid #6B78B4; "
         "  border-radius: 5px; "
-        "  margin-top: 2ex"
         "}"
 
         "QLineEdit, QListWidget, QListView { "

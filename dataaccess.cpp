@@ -11,7 +11,7 @@ DataAccess::DataAccess()
 
 void DataAccess::OpenOrCreate()
 {
-    m_db.setDatabaseName("hello.sqlite");
+    m_db.setDatabaseName("tags.sqlite");
     bool opened = m_db.open();
 
     if (opened)
