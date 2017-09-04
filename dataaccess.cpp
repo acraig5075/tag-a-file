@@ -61,15 +61,27 @@ QString toCsv(const QStringList &tagList)
 
 QStringList DataAccess::QueryTags(const QStringList &tagList)
 {
+    // http://tagging.pui.ch/post/37027745720/tags-database-schemas
+
     QString csv = toCsv(tagList);
-    QString string = QString("SELECT DISTINCT `content` "
-                             "FROM `items` "
-                             "INNER JOIN `item_tag_map` ON items.id=item_tag_map.item_id "
-                             "INNER JOIN tags ON tags.id=item_tag_map.tag_id "
-                             "WHERE tags.title IN (%1)").arg(csv);
+
+//    QString sql_union = QString("SELECT items.content "
+//                            "FROM item_tag_map mapping, items, tags "
+//                            "WHERE mapping.tag_id = tags.id "
+//                            "AND (tags.title IN (%1)) "
+//                            "AND items.id = mapping.item_id "
+//                            "GROUP BY items.id ").arg(csv);
+
+    QString sql_intersection = QString("SELECT items.content "
+                             "FROM item_tag_map mapping, items, tags "
+                             "WHERE mapping.tag_id = tags.id "
+                             "AND (tags.title IN (%1)) "
+                             "AND items.id = mapping.item_id "
+                             "GROUP BY items.id "
+                             "HAVING COUNT( items.id )=%2 ").arg(csv).arg(tagList.size());
 
     QStringList result;
-    QSqlQuery query(string);
+    QSqlQuery query(sql_intersection);
     while (query.next())
         result.push_back(query.value(0).toString());
 
