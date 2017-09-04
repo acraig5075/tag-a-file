@@ -12,8 +12,8 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     m_dal(dal)
 {
     ui->setupUi(this);
-
     ui->tagEdit->setBuddyList(ui->tagList);
+    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
 
     m_model = new QStringListModel(this);
 

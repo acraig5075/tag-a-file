@@ -1,6 +1,7 @@
 #include "taglineedit.h"
 #include "taglistwidget.h"
 #include <QRegExpValidator>
+#include <QCompleter>
 
 
 TagLineEdit::TagLineEdit(QWidget *parent)
@@ -15,6 +16,17 @@ TagLineEdit::TagLineEdit(QWidget *parent)
 void TagLineEdit::setBuddyList(TagListWidget *buddyList)
 {
     m_buddyList = buddyList;
+}
+
+void TagLineEdit::setTagCompleter(const QStringList &list)
+{
+    if (m_completer)
+        delete m_completer;
+
+    m_completer = new QCompleter(list, this);
+    m_completer->setCompletionMode(QCompleter::PopupCompletion);
+    m_completer->setModelSorting(QCompleter::UnsortedModel);
+    setCompleter(m_completer);
 }
 
 void TagLineEdit::onTextEdited(const QString &arg1)

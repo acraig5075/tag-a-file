@@ -10,6 +10,7 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
+    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
 
     QObject::connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(resetTagList()));
 }
@@ -54,4 +55,5 @@ void EditPage::on_pushButton_clicked()
     ui->tagEdit->clear();
     ui->tagList->clear();
     ui->lineEdit->setFocus();
+    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
 }

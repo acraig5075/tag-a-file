@@ -80,12 +80,7 @@ QStringList DataAccess::QueryTags(const QStringList &tagList)
                              "GROUP BY items.id "
                              "HAVING COUNT( items.id )=%2 ").arg(csv).arg(tagList.size());
 
-    QStringList result;
-    QSqlQuery query(sql_intersection);
-    while (query.next())
-        result.push_back(query.value(0).toString());
-
-    return result;
+    return ExecReader(sql_intersection);
 }
 
 QStringList DataAccess::QueryFile(const QString &fileName)
@@ -96,13 +91,14 @@ QStringList DataAccess::QueryFile(const QString &fileName)
                              "INNER JOIN `items` ON items.id=item_tag_map.item_id "
                              "WHERE items.content='%1'").arg(fileName);
 
-    QStringList result;
-    QSqlQuery query(string);
-    while (query.next())
-        result.push_back(query.value(0).toString());
+    return ExecReader(string);
+}
 
-    return result;
+QStringList DataAccess::BrowseTags()
+{
+    QString string = "SELECT `title` FROM `tags` ORDER BY `title` ASC";
 
+    return ExecReader(string);
 }
 
 void DataAccess::ExecQuery(const QString &string)
@@ -125,6 +121,16 @@ int DataAccess::ExecScalar(const QString &string)
         return query.value(0).toInt();
     else
         return -1;
+}
+
+QStringList DataAccess::ExecReader(const QString &string)
+{
+    QStringList result;
+    QSqlQuery query(string);
+    while (query.next())
+        result.push_back(query.value(0).toString());
+
+    return result;
 }
 
 void DataAccess::CreateItemsTable()
