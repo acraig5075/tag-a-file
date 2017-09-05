@@ -12,12 +12,7 @@ DataAccess::DataAccess()
 void DataAccess::OpenOrCreate()
 {
     m_db.setDatabaseName("tags.sqlite");
-    bool opened = m_db.open();
-
-    if (opened)
-        qDebug() << QString("Database open succeeded.");
-    else
-        qDebug() << QString("Database open failed.");
+    m_db.open();
 
     CreateItemsTable();
     CreateTagsTable();

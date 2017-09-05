@@ -1,7 +1,9 @@
 #include "editpage.h"
 #include "dataaccess.h"
 #include "ui_editpage.h"
-#include "QFileDialog"
+#include <QFileDialog>
+#include <QCompleter>
+#include <QFileSystemModel>
 
 EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
@@ -11,6 +13,12 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+
+    QFileSystemModel *model = new QFileSystemModel(this);
+    QCompleter *completer = new QCompleter(model, this);
+    model->setRootPath("C:\\");
+    completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
+    ui->lineEdit->setCompleter(completer);
 
     QObject::connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(resetTagList()));
 }
@@ -26,7 +34,7 @@ void EditPage::on_browseButton_clicked()
 
     if (!filename.isEmpty())
     {
-        ui->lineEdit->setText(filename);
+        ui->lineEdit->setText(QDir::toNativeSeparators(filename));
         resetTagList();
     }
 }

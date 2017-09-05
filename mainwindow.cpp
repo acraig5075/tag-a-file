@@ -11,7 +11,7 @@ MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("Tag Anything");
+    setWindowTitle("Tag a File");
 
     m_editPage = new EditPage(m_dal, this);
     m_searchPage = new SearchPage(m_dal, this);

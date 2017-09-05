@@ -4,6 +4,9 @@
 #include <QWidget>
 
 class DataAccess;
+class QFileSystemModel;
+class QCompleter;
+
 
 namespace Ui {
 class EditPage;
