@@ -22,6 +22,7 @@ public:
 public slots:
     void updateResultView();
     void copyToClipboard();
+    void setActive();
 
 private:
     Ui::SearchPage *ui;

@@ -30,6 +30,15 @@ SearchPage::~SearchPage()
     delete ui;
 }
 
+void SearchPage::setActive()
+{
+    m_model->setStringList({});
+    ui->tagEdit->clear();
+    ui->tagList->clear();
+    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+    ui->resultView->setModel(m_model);
+}
+
 void SearchPage::updateResultView()
 {
     QStringList tags = ui->tagList->toStringList();

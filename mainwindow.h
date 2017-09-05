@@ -19,6 +19,9 @@ public:
     explicit MainWindow(DataAccess &dal, QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void tabChanged(int index);
+
 private:
     Ui::MainWindow *ui;
     DataAccess &m_dal;

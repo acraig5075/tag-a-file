@@ -18,9 +18,19 @@ MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
 
     ui->page1Layout->addWidget(m_editPage);
     ui->page2Layout->addWidget(m_searchPage);
+
+    QObject::connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::tabChanged(int index)
+{
+    if (index == 1) // searchPage
+    {
+        m_searchPage->setActive();
+    }
 }

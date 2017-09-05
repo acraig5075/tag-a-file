@@ -49,6 +49,9 @@ void EditPage::resetTagList()
     {
         QStringList tags = m_dal.QueryFile(filename);
         ui->tagList->addItems(tags);
+
+        if (!tags.isEmpty())
+            ui->pushButton->setText("Update");
     }
 }
 
@@ -64,4 +67,5 @@ void EditPage::on_pushButton_clicked()
     ui->tagList->clear();
     ui->lineEdit->setFocus();
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+    ui->pushButton->setText("Add");
 }
