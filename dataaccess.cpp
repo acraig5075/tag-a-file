@@ -58,20 +58,21 @@ QString toCsv(const QStringList &tagList)
     return csv;
 }
 
-QStringList DataAccess::QueryTags(const QStringList &tagList)
+
+void DataAccess::SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList)
 {
     // http://tagging.pui.ch/post/37027745720/tags-database-schemas
 
     QString csv = toCsv(tagList);
 
-    //    QString sql_union = QString("SELECT items.content "
+    //    QString sql_union = QString("SELECT items.content AS 'Filename' "
     //                            "FROM item_tag_map mapping, items, tags "
     //                            "WHERE mapping.tag_id = tags.id "
     //                            "AND (tags.title IN (%1)) "
     //                            "AND items.id = mapping.item_id "
     //                            "GROUP BY items.id ").arg(csv);
 
-    QString sql_intersection = QString("SELECT items.content "
+    QString sql_intersection = QString("SELECT items.content AS 'Filename' "
                                        "FROM item_tag_map mapping, items, tags "
                                        "WHERE mapping.tag_id = tags.id "
                                        "AND (tags.title IN (%1)) "
@@ -79,7 +80,7 @@ QStringList DataAccess::QueryTags(const QStringList &tagList)
                                        "GROUP BY items.id "
                                        "HAVING COUNT( items.id )=%2 ").arg(csv).arg(tagList.size());
 
-    return ExecReader(sql_intersection);
+    model.setQuery(sql_intersection);
 }
 
 QStringList DataAccess::QueryFile(const QString &fileName)

@@ -12,9 +12,9 @@ public:
 
     void OpenOrCreate();
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
-    QStringList QueryTags(const QStringList &tagList);
     QStringList QueryFile(const QString &fileName);
     QStringList BrowseTags();
+    void SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList);
     void SetupFilesModel(QSqlQueryModel &model);
     void SetupTagsModel(QSqlQueryModel &model);
 

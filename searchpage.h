@@ -4,7 +4,7 @@
 #include <QWidget>
 
 class DataAccess;
-class QStringListModel;
+class QSqlQueryModel;
 
 
 namespace Ui {
@@ -27,7 +27,7 @@ public slots:
 private:
     Ui::SearchPage *ui;
     DataAccess &m_dal;
-    QStringListModel *m_model = nullptr;
+    QSqlQueryModel *m_model = nullptr;
 };
 
 #endif // SEARCHPAGE_H

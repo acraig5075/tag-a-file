@@ -33,7 +33,6 @@ void BrowsePage::on_filesButton_clicked()
     ui->filesButton->setChecked(true);
     ui->label->setText("All files:");
     ui->tableView->setModel(m_filesModel);
-    ui->tableView->show();
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
 }
 
@@ -42,6 +41,5 @@ void BrowsePage::on_tagsButton_clicked()
     ui->tagsButton->setChecked(true);
     ui->label->setText("All tags:");
     ui->tableView->setModel(m_tagsModel);
-    ui->tableView->show();
     ui->tableView->horizontalHeader()->setStretchLastSection(false);
 }

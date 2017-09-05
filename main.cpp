@@ -84,7 +84,7 @@ static const QString styleSheet =
 
         "QTableView { background: lightGray }"
         "QTableView::item { background-color: white }"
-        "QTableView::item:selected { background-color: rgb(0,140,255) }"
+        "QTableView::item:selected { background-color: palette(highlight); }"
         ;
 
 

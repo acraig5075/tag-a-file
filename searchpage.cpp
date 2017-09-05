@@ -2,7 +2,8 @@
 #include "dataaccess.h"
 #include "ui_searchpage.h"
 #include <QDebug>
-#include <QStringListModel>
+#include <QSqlQueryModel>
+#include <QSqlRecord>
 #include <QClipboard>
 
 
@@ -14,8 +15,10 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+    ui->resultView->horizontalHeader()->setStretchLastSection(true);
 
-    m_model = new QStringListModel(this);
+    m_model = new QSqlQueryModel(this);
+    updateResultView();
 
     QAction *clipboardAction = new QAction("Copy to clipboard", this);
     ui->resultView->addAction(clipboardAction);
@@ -32,7 +35,7 @@ SearchPage::~SearchPage()
 
 void SearchPage::setActive()
 {
-    m_model->setStringList({});
+    m_model->clear();
     ui->tagEdit->clear();
     ui->tagList->clear();
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
@@ -42,9 +45,9 @@ void SearchPage::setActive()
 void SearchPage::updateResultView()
 {
     QStringList tags = ui->tagList->toStringList();
-    QStringList results = m_dal.QueryTags(tags);
 
-    m_model->setStringList(results);
+    m_dal.SetupSearchModel(*m_model, tags);
+
     ui->resultView->setModel(m_model);
 }
 
@@ -55,14 +58,14 @@ void SearchPage::copyToClipboard()
     QItemSelectionModel *selection = ui->resultView->selectionModel();
     if (selection && selection->hasSelection())
     {
-        QModelIndexList indices = selection->selectedIndexes();
+        QModelIndexList indices = selection->selectedRows();
         if (indices.size() > 0)
         {
-            QVariant data = m_model->data(indices[0], Qt::DisplayRole);
+            QSqlRecord record = m_model->record(indices[0].row());
+            QVariant data = record.value(0);
             filename = data.toString();
         }
     }
 
-    if (!filename.isEmpty())
-        QApplication::clipboard()->setText(filename);
+    QApplication::clipboard()->setText(filename);
 }
