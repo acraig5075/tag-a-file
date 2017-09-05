@@ -26,6 +26,8 @@ private:
     void InsertItem(const QString &item);
     void InsertTag(const QString &tag);
     void InsertMapping(int itemID, int tagID);
+    void InsertMappings(int itemID, const QList<int> &tagIDs);
+    void DeleteMappings(int itemID);
 
     int GetItemID(const QString &item);
     int GetTagID(const QString &tag);

@@ -5,7 +5,7 @@
 #include <QMessageBox>
 
 DataAccess::DataAccess(const QString dbname)
-  : m_dbname(dbname)
+    : m_dbname(dbname)
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 }
@@ -25,23 +25,24 @@ void DataAccess::InsertOrUpdate(const QString &item, const QStringList &tagList)
     if (tagList.isEmpty())
         return;
 
-    // TODO: begin transaction
+    ExecQuery("BEGIN TRANSACTION");
 
     InsertItem(item);
     int itemID = GetItemID(item);
 
+    DeleteMappings(itemID);
+
+    QList<int> tagIDs;
     for (QString tag : tagList)
     {
         InsertTag(tag);
         int tagID = GetTagID(tag);
-
-        if (itemID >= 0 && tagID >= 0)
-        {
-            InsertMapping(itemID, tagID);
-        }
+        tagIDs.push_back(tagID);
     }
 
-    // TODO: end transaction
+    InsertMappings(itemID, tagIDs);
+
+    ExecQuery("COMMIT TRANSACTION");
 }
 
 QString toCsv(const QStringList &tagList)
@@ -61,20 +62,20 @@ QStringList DataAccess::QueryTags(const QStringList &tagList)
 
     QString csv = toCsv(tagList);
 
-//    QString sql_union = QString("SELECT items.content "
-//                            "FROM item_tag_map mapping, items, tags "
-//                            "WHERE mapping.tag_id = tags.id "
-//                            "AND (tags.title IN (%1)) "
-//                            "AND items.id = mapping.item_id "
-//                            "GROUP BY items.id ").arg(csv);
+    //    QString sql_union = QString("SELECT items.content "
+    //                            "FROM item_tag_map mapping, items, tags "
+    //                            "WHERE mapping.tag_id = tags.id "
+    //                            "AND (tags.title IN (%1)) "
+    //                            "AND items.id = mapping.item_id "
+    //                            "GROUP BY items.id ").arg(csv);
 
     QString sql_intersection = QString("SELECT items.content "
-                             "FROM item_tag_map mapping, items, tags "
-                             "WHERE mapping.tag_id = tags.id "
-                             "AND (tags.title IN (%1)) "
-                             "AND items.id = mapping.item_id "
-                             "GROUP BY items.id "
-                             "HAVING COUNT( items.id )=%2 ").arg(csv).arg(tagList.size());
+                                       "FROM item_tag_map mapping, items, tags "
+                                       "WHERE mapping.tag_id = tags.id "
+                                       "AND (tags.title IN (%1)) "
+                                       "AND items.id = mapping.item_id "
+                                       "GROUP BY items.id "
+                                       "HAVING COUNT( items.id )=%2 ").arg(csv).arg(tagList.size());
 
     return ExecReader(sql_intersection);
 }
@@ -176,10 +177,26 @@ void DataAccess::InsertTag(const QString &tag)
     ExecQuery(query);
 }
 
-void DataAccess::InsertMapping(int itemID, int tagID)
+void DataAccess::InsertMappings(int itemID, const QList<int> &tagIDs)
 {
-    QString query = QString("INSERT INTO `item_tag_map` "
-                            "VALUES (%1, %2);").arg(itemID).arg(tagID);
+    QString query = QString("INSERT INTO `item_tag_map` VALUES ");
+
+    for (int i = 0; i < tagIDs.size(); ++i)
+    {
+        int tagID = tagIDs[i];
+        if (i == 0)
+            query.append(QString("(%1, %2)").arg(itemID).arg(tagID));
+        else
+            query.append(QString(", (%1, %2)").arg(itemID).arg(tagID));
+    }
+
+    ExecQuery(query);
+}
+
+void DataAccess::DeleteMappings(int itemID)
+{
+    QString query = QString("DELETE FROM `item_tag_map` "
+                            "WHERE `item_id`='%1'").arg(itemID);
     ExecQuery(query);
 }
 
