@@ -219,10 +219,10 @@ int DataAccess::GetTagID(const QString &tag)
 
 void DataAccess::SetupFilesModel(QSqlQueryModel &model)
 {
-    model.setQuery("SELECT `content` AS 'Filename' FROM `items` ORDER BY `content`");
+    model.setQuery("SELECT `id`, `content` AS 'Filename' FROM `items` ORDER BY `content`");
 }
 
 void DataAccess::SetupTagsModel(QSqlQueryModel &model)
 {
-    model.setQuery("SELECT `title` AS 'Tag' FROM `tags` ORDER BY `title`");
+    model.setQuery("SELECT `id`, `title` AS 'Tag' FROM `tags` ORDER BY `title`");
 }

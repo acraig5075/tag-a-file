@@ -20,8 +20,10 @@ public:
 
 private slots:
     void on_filesButton_clicked();
-
     void on_tagsButton_clicked();
+    void onSearchMenu();
+    void onEditMenu();
+    void onDeleteMenu();
 
 private:
     Ui::BrowsePage *ui;

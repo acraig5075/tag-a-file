@@ -16,6 +16,8 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     ui->tagEdit->setBuddyList(ui->tagList);
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
     ui->resultView->horizontalHeader()->setStretchLastSection(true);
+    ui->resultView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->resultView->setContextMenuPolicy(Qt::ActionsContextMenu);
 
     m_model = new QSqlQueryModel(this);
     updateResultView();
