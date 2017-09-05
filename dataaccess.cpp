@@ -3,6 +3,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMessageBox>
+#include <QSqlQueryModel>
+
 
 DataAccess::DataAccess(const QString dbname)
     : m_dbname(dbname)
@@ -214,3 +216,12 @@ int DataAccess::GetTagID(const QString &tag)
     return ExecScalar(string);
 }
 
+void DataAccess::SetupFilesModel(QSqlQueryModel &model)
+{
+    model.setQuery("SELECT `content` AS 'Filename' FROM `items` ORDER BY `content`");
+}
+
+void DataAccess::SetupTagsModel(QSqlQueryModel &model)
+{
+    model.setQuery("SELECT `title` AS 'Tag' FROM `tags` ORDER BY `title`");
+}

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "editpage.h"
 #include "searchpage.h"
+#include "browsepage.h"
 
 
 MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
@@ -15,9 +16,13 @@ MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
 
     m_editPage = new EditPage(m_dal, this);
     m_searchPage = new SearchPage(m_dal, this);
+    m_browsePage = new BrowsePage(m_dal, this);
 
     ui->page1Layout->addWidget(m_editPage);
     ui->page2Layout->addWidget(m_searchPage);
+    ui->page3Layout->addWidget(m_browsePage);
+
+    ui->tabWidget->setCurrentIndex(0);
 
     QObject::connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
 }

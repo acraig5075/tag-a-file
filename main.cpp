@@ -57,9 +57,12 @@ static const QString styleSheet =
         "  background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 2, stop: 0 #B3B3D7, stop: 1 #FFFFFF); "
         "  border: 2px solid #6B78B4; "
         "  border-radius: 5px; "
+        "  padding-left: 12px; "
+        "  padding-right: 12px; "
+        "  padding-bottom: 12px; "
         "}"
 
-        "QLineEdit, QListWidget, QListView { "
+        "QLineEdit, QListWidget, QListView, QTableView { "
         "  min-height: 20px; "
         "  border: 1px solid #6B78B4; "
         "  border-radius: 4px; "
@@ -71,7 +74,18 @@ static const QString styleSheet =
         "  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F6F7FA, stop: 1 #DADBDE); "
         "  min-width: 80px;"
         "  min-height: 22px;"
-        "}";
+        "}"
+
+        "QPushButton:checked { "
+        "  color: white; "
+        "  background-color: #505050; "
+        "  border: none; "
+        "}"
+
+        "QTableView { background: lightGray }"
+        "QTableView::item { background-color: white }"
+        "QTableView::item:selected { background-color: rgb(0,140,255) }"
+        ;
 
 
 int main(int argc, char *argv[])

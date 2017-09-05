@@ -3,6 +3,8 @@
 
 #include <QtSql/QSqlDatabase>
 
+class QSqlQueryModel;
+
 class DataAccess
 {
 public:
@@ -13,6 +15,8 @@ public:
     QStringList QueryTags(const QStringList &tagList);
     QStringList QueryFile(const QString &fileName);
     QStringList BrowseTags();
+    void SetupFilesModel(QSqlQueryModel &model);
+    void SetupTagsModel(QSqlQueryModel &model);
 
 private:
     void ExecQuery(const QString &string);

@@ -5,6 +5,7 @@
 
 class EditPage;
 class SearchPage;
+class BrowsePage;
 class DataAccess;
 
 namespace Ui {
@@ -27,7 +28,7 @@ private:
     DataAccess &m_dal;
     EditPage *m_editPage = nullptr;
     SearchPage *m_searchPage = nullptr;
-
+    BrowsePage *m_browsePage = nullptr;
 };
 
 #endif // MAINWINDOW_H

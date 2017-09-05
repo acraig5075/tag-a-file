@@ -18,15 +18,18 @@ SOURCES += main.cpp\
     searchpage.cpp \
     taglineedit.cpp \
     taglistwidget.cpp \
-    dataaccess.cpp
+    dataaccess.cpp \
+    browsepage.cpp
 
 HEADERS  += mainwindow.h \
     editpage.h \
     searchpage.h \
     taglineedit.h \
     taglistwidget.h \
-    dataaccess.h
+    dataaccess.h \
+    browsepage.h
 
 FORMS    += mainwindow.ui \
     editpage.ui \
-    searchpage.ui
+    searchpage.ui \
+    browsepage.ui
