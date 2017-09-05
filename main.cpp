@@ -76,10 +76,14 @@ static const QString styleSheet =
 
 int main(int argc, char *argv[])
 {
+    QString dbname = "tags.sqlite";
+    if (argc > 1)
+        dbname = QString(argv[1]);
+
     QApplication a(argc, argv);
     a.setStyleSheet(styleSheet);
 
-    DataAccess dal;
+    DataAccess dal(dbname);
     dal.OpenOrCreate();
 
     MainWindow w(dal);

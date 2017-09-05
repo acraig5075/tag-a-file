@@ -4,14 +4,15 @@
 #include <QSqlError>
 #include <QMessageBox>
 
-DataAccess::DataAccess()
+DataAccess::DataAccess(const QString dbname)
+  : m_dbname(dbname)
 {
     m_db = QSqlDatabase::addDatabase("QSQLITE");
 }
 
 void DataAccess::OpenOrCreate()
 {
-    m_db.setDatabaseName("tags.sqlite");
+    m_db.setDatabaseName(m_dbname);
     m_db.open();
 
     CreateItemsTable();

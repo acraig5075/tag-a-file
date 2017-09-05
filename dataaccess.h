@@ -6,7 +6,7 @@
 class DataAccess
 {
 public:
-    DataAccess();
+    DataAccess(const QString dbname = "tags.sqlite");
 
     void OpenOrCreate();
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
@@ -32,6 +32,7 @@ private:
 
 private:
     QSqlDatabase m_db;
+    QString m_dbname;
 };
 
 #endif // DATAACCESS_H
