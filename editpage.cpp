@@ -69,3 +69,10 @@ void EditPage::on_pushButton_clicked()
     ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
     ui->pushButton->setText("Add");
 }
+
+void EditPage::editContent(const QString &content)
+{
+    ui->lineEdit->setText(content);
+
+    resetTagList();
+}

@@ -28,6 +28,10 @@ private slots:
 private:
     int getSelectedID();
 
+signals:
+    void searchTag(int);
+    void searchFile(int);
+
 private:
     Ui::BrowsePage *ui;
     DataAccess &m_dal;

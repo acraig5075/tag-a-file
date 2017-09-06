@@ -123,6 +123,15 @@ int DataAccess::ExecScalar(const QString &string)
         return -1;
 }
 
+QString DataAccess::ExecScalarString(const QString &string)
+{
+    QSqlQuery query(string);
+    if (query.next())
+        return query.value(0).toString();
+    else
+        return "";
+}
+
 QStringList DataAccess::ExecReader(const QString &string)
 {
     QStringList result;
@@ -215,6 +224,24 @@ int DataAccess::GetTagID(const QString &tag)
     QString string = QString("SELECT `id` FROM `tags` "
                              "WHERE `title` = '%1'").arg(tag);
     return ExecScalar(string);
+}
+
+QString DataAccess::GetItemContent(int id)
+{
+    if (id == 0)
+        return "";
+    QString query = QString("SELECT `content` FROM `items` "
+                            "WHERE `id`=%1").arg(id);
+    return ExecScalarString(query);
+}
+
+QString DataAccess::GetTagTitle(int id)
+{
+    if (id == 0)
+        return "";
+    QString query = QString("SELECT `title` FROM `tags` "
+                            "WHERE `id`=%1").arg(id);
+    return ExecScalarString(query);
 }
 
 void DataAccess::SetupFilesModel(QSqlQueryModel &model)

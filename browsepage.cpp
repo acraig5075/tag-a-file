@@ -85,7 +85,14 @@ int BrowsePage::getSelectedID()
 }
 
 void BrowsePage::onSearchMenu()
-{}
+{
+    int id = getSelectedID();
+
+    if (ui->filesButton->isChecked())
+        emit searchFile(id);
+    else
+        emit searchTag(id);
+}
 
 void BrowsePage::onEditMenu()
 {}

@@ -14,6 +14,8 @@ public:
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
     QStringList QueryFile(const QString &fileName);
     QStringList BrowseTags();
+    QString GetItemContent(int id);
+    QString GetTagTitle(int id);
 
     void SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList);
     void SetupFilesModel(QSqlQueryModel &model);
@@ -25,6 +27,7 @@ public:
 private:
     void ExecQuery(const QString &string);
     int ExecScalar(const QString &string);
+    QString ExecScalarString(const QString &string);
     QStringList ExecReader(const QString &string);
 
     void CreateItemsTable();

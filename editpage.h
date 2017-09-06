@@ -20,6 +20,8 @@ public:
     explicit EditPage(DataAccess &dal, QWidget *parent = 0);
     ~EditPage();
 
+    void editContent(const QString &content);
+
 private slots:
     void on_browseButton_clicked();
     void on_pushButton_clicked();

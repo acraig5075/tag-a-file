@@ -71,3 +71,10 @@ void SearchPage::copyToClipboard()
 
     QApplication::clipboard()->setText(filename);
 }
+
+void SearchPage::searchTag(const QString &tag)
+{
+    ui->tagList->addTagItem(tag);
+
+    updateResultView();
+}

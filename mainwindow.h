@@ -22,6 +22,8 @@ public:
 
 private slots:
     void tabChanged(int index);
+    void onSearchFile(int id);
+    void onSearchTag(int id);
 
 private:
     Ui::MainWindow *ui;

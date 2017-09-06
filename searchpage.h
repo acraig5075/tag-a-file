@@ -19,6 +19,8 @@ public:
     explicit SearchPage(DataAccess &dal, QWidget *parent = 0);
     ~SearchPage();
 
+    void searchTag(const QString &tag);
+
 public slots:
     void updateResultView();
     void copyToClipboard();
