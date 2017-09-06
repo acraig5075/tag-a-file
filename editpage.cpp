@@ -12,7 +12,7 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
-    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
 
     QFileSystemModel *model = new QFileSystemModel(this);
     QCompleter *completer = new QCompleter(model, this);
@@ -47,7 +47,7 @@ void EditPage::resetTagList()
 
     if (!filename.isEmpty())
     {
-        QStringList tags = m_dal.QueryFile(filename);
+        QStringList tags = m_dal.GetTagsForItem(filename);
         ui->tagList->addItems(tags);
 
         if (!tags.isEmpty())
@@ -66,7 +66,7 @@ void EditPage::on_pushButton_clicked()
     ui->tagEdit->clear();
     ui->tagList->clear();
     ui->lineEdit->setFocus();
-    ui->tagEdit->setTagCompleter(m_dal.BrowseTags());
+    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
     ui->pushButton->setText("Add");
 }
 

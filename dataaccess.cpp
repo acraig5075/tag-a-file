@@ -59,7 +59,7 @@ QString toCsv(const QStringList &tagList)
 }
 
 
-void DataAccess::SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList)
+void DataAccess::RefreshSearchModel(QSqlQueryModel &model, const QStringList &tagList)
 {
     // http://tagging.pui.ch/post/37027745720/tags-database-schemas
 
@@ -83,18 +83,18 @@ void DataAccess::SetupSearchModel(QSqlQueryModel &model, const QStringList &tagL
     model.setQuery(sql_intersection);
 }
 
-QStringList DataAccess::QueryFile(const QString &fileName)
+QStringList DataAccess::GetTagsForItem(const QString &content)
 {
     QString string = QString("SELECT `title` "
                              "FROM `tags` "
                              "INNER JOIN `item_tag_map` ON tags.id=item_tag_map.tag_id "
                              "INNER JOIN `items` ON items.id=item_tag_map.item_id "
-                             "WHERE items.content='%1'").arg(fileName);
+                             "WHERE items.content='%1'").arg(content);
 
     return ExecReader(string);
 }
 
-QStringList DataAccess::BrowseTags()
+QStringList DataAccess::GetTagList()
 {
     QString string = "SELECT `title` FROM `tags` ORDER BY `title` ASC";
 
@@ -244,12 +244,12 @@ QString DataAccess::GetTagTitle(int id)
     return ExecScalarString(query);
 }
 
-void DataAccess::SetupFilesModel(QSqlQueryModel &model)
+void DataAccess::RefreshItemsModel(QSqlQueryModel &model)
 {
     model.setQuery("SELECT `id`, `content` AS 'Filename' FROM `items` ORDER BY `content`");
 }
 
-void DataAccess::SetupTagsModel(QSqlQueryModel &model)
+void DataAccess::RefreshTagsModel(QSqlQueryModel &model)
 {
     model.setQuery("SELECT `id`, `title` AS 'Tag' FROM `tags` ORDER BY `title`");
 }

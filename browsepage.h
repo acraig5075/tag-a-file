@@ -27,6 +27,7 @@ private slots:
 
 private:
     int getSelectedID();
+    void refreshTableView();
 
 signals:
     void searchTag(int);

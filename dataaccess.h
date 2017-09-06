@@ -12,14 +12,15 @@ public:
 
     void OpenOrCreate();
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
-    QStringList QueryFile(const QString &fileName);
-    QStringList BrowseTags();
+
+    QStringList GetTagsForItem(const QString &content);
+    QStringList GetTagList();
     QString GetItemContent(int id);
     QString GetTagTitle(int id);
 
-    void SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList);
-    void SetupFilesModel(QSqlQueryModel &model);
-    void SetupTagsModel(QSqlQueryModel &model);
+    void RefreshSearchModel(QSqlQueryModel &model, const QStringList &tagList);
+    void RefreshItemsModel(QSqlQueryModel &model);
+    void RefreshTagsModel(QSqlQueryModel &model);
 
     void DeleteItem(int id);
     void DeleteTag(int id);

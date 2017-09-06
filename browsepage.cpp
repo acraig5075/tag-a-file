@@ -3,6 +3,7 @@
 #include "dataaccess.h"
 #include <QSqlQueryModel>
 #include <QSqlRecord>
+#include <QMessageBox>
 
 
 BrowsePage::BrowsePage(DataAccess &dal, QWidget *parent) :
@@ -20,8 +21,8 @@ BrowsePage::BrowsePage(DataAccess &dal, QWidget *parent) :
     m_filesModel = new QSqlQueryModel(this);
     m_tagsModel = new QSqlQueryModel(this);
 
-    m_dal.SetupFilesModel(*m_filesModel);
-    m_dal.SetupTagsModel(*m_tagsModel);
+    m_dal.RefreshItemsModel(*m_filesModel);
+    m_dal.RefreshTagsModel(*m_tagsModel);
 
     on_filesButton_clicked();
 
@@ -95,22 +96,35 @@ void BrowsePage::onSearchMenu()
 }
 
 void BrowsePage::onEditMenu()
-{}
+{
+    QMessageBox::information(this, "Information", "This feature is not yet implemented.");
+}
 
 void BrowsePage::onDeleteMenu()
 {
     int id = getSelectedID();
 
+    if (id > 0 && QMessageBox::No == QMessageBox::question(this, "Confirm", "Are you sure you want to permananently delete this value?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No))
+        return;
+
+    if (ui->filesButton->isChecked())
+        m_dal.DeleteItem(id);
+    else
+        m_dal.DeleteTag(id);
+
+    refreshTableView();
+}
+
+void BrowsePage::refreshTableView()
+{
     if (ui->filesButton->isChecked())
     {
-        m_dal.DeleteItem(id);
-        m_dal.SetupFilesModel(*m_filesModel);
+        m_dal.RefreshItemsModel(*m_filesModel);
         ui->tableView->setModel(m_filesModel);
     }
     else
     {
-        m_dal.DeleteTag(id);
-        m_dal.SetupTagsModel(*m_tagsModel);
+        m_dal.RefreshTagsModel(*m_tagsModel);
         ui->tableView->setModel(m_tagsModel);
     }
 }
