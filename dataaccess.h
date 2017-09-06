@@ -14,9 +14,13 @@ public:
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
     QStringList QueryFile(const QString &fileName);
     QStringList BrowseTags();
+
     void SetupSearchModel(QSqlQueryModel &model, const QStringList &tagList);
     void SetupFilesModel(QSqlQueryModel &model);
     void SetupTagsModel(QSqlQueryModel &model);
+
+    void DeleteItem(int id);
+    void DeleteTag(int id);
 
 private:
     void ExecQuery(const QString &string);

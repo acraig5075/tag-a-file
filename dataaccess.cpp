@@ -226,3 +226,25 @@ void DataAccess::SetupTagsModel(QSqlQueryModel &model)
 {
     model.setQuery("SELECT `id`, `title` AS 'Tag' FROM `tags` ORDER BY `title`");
 }
+
+void DataAccess::DeleteItem(int id)
+{
+    if (id > 0)
+    {
+        ExecQuery("BEGIN TRANSACTION");
+        ExecQuery(QString("DELETE FROM `items` WHERE `id`=%1").arg(id));
+        ExecQuery(QString("DELETE FROM `item_tag_map` WHERE `item_id`=%1").arg(id));
+        ExecQuery("END TRANSACTION");
+    }
+}
+
+void DataAccess::DeleteTag(int id)
+{
+    if (id > 0)
+    {
+        ExecQuery("BEGIN TRANSACTION");
+        ExecQuery(QString("DELETE FROM `tags` WHERE `id`=%1").arg(id));
+        ExecQuery(QString("DELETE FROM `item_tag_map` WHERE `tag_id`=%1").arg(id));
+        ExecQuery("END TRANSACTION");
+    }
+}

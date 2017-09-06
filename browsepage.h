@@ -26,6 +26,9 @@ private slots:
     void onDeleteMenu();
 
 private:
+    int getSelectedID();
+
+private:
     Ui::BrowsePage *ui;
     DataAccess &m_dal;
     QSqlQueryModel *m_filesModel = nullptr;

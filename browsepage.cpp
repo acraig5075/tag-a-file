@@ -2,6 +2,7 @@
 #include "ui_browsepage.h"
 #include "dataaccess.h"
 #include <QSqlQueryModel>
+#include <QSqlRecord>
 
 
 BrowsePage::BrowsePage(DataAccess &dal, QWidget *parent) :
@@ -60,6 +61,29 @@ void BrowsePage::on_tagsButton_clicked()
     ui->tableView->setColumnHidden(0, true);
 }
 
+int BrowsePage::getSelectedID()
+{
+    QSqlQueryModel *activeModel = nullptr;
+    if (ui->filesButton->isChecked())
+        activeModel = m_filesModel;
+    else
+        activeModel = m_tagsModel;
+
+    QItemSelectionModel *selection = ui->tableView->selectionModel();
+    if (selection && selection->hasSelection())
+    {
+        QModelIndexList indices = selection->selectedIndexes();
+        if (indices.size() > 0)
+        {
+            QSqlRecord record = activeModel->record(indices[0].row());
+            QVariant data = record.value(0);
+            return data.toInt();
+        }
+    }
+
+    return 0;
+}
+
 void BrowsePage::onSearchMenu()
 {}
 
@@ -67,4 +91,19 @@ void BrowsePage::onEditMenu()
 {}
 
 void BrowsePage::onDeleteMenu()
-{}
+{
+    int id = getSelectedID();
+
+    if (ui->filesButton->isChecked())
+    {
+        m_dal.DeleteItem(id);
+        m_dal.SetupFilesModel(*m_filesModel);
+        ui->tableView->setModel(m_filesModel);
+    }
+    else
+    {
+        m_dal.DeleteTag(id);
+        m_dal.SetupTagsModel(*m_tagsModel);
+        ui->tableView->setModel(m_tagsModel);
+    }
+}
