@@ -101,6 +101,7 @@ int main(int argc, char *argv[])
     dal.OpenOrCreate();
 
     MainWindow w(dal);
+    w.readPositionSettings();
     w.show();
 
     return a.exec();

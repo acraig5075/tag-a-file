@@ -20,6 +20,10 @@ public:
     explicit MainWindow(DataAccess &dal, QWidget *parent = 0);
     ~MainWindow();
 
+    void writePositionSettings();
+    void readPositionSettings();
+    void closeEvent( QCloseEvent* );
+
 private slots:
     void tabChanged(int index);
     void onSearchFile(int id);

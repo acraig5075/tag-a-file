@@ -14,8 +14,8 @@ void TagListWidget::showContextMenu(const QPoint &pos)
     QPoint globalPos = mapToGlobal(pos);
 
     QMenu myMenu;
-    myMenu.addAction("Delete", this, SLOT(removeSelectedItem()));
-    myMenu.addAction("Delete All", this, SLOT(removeAllItems()));
+    myMenu.addAction("Remove", this, SLOT(removeSelectedItem()));
+    myMenu.addAction("Remove All", this, SLOT(removeAllItems()));
 
     myMenu.exec(globalPos);
 }

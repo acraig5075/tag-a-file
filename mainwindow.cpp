@@ -4,6 +4,7 @@
 #include "searchpage.h"
 #include "browsepage.h"
 #include "dataaccess.h"
+#include <QSettings>
 
 
 MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
@@ -59,4 +60,42 @@ void MainWindow::onSearchTag(int id)
     ui->tabWidget->setCurrentIndex(1);
 
     m_searchPage->searchTag(tag);
+}
+
+
+void MainWindow::writePositionSettings()
+{
+    QSettings settings( "Alasdair Craig", "Tag a File" );
+
+    settings.beginGroup( "MainWindow" );
+    settings.setValue( "Geometry", saveGeometry() );
+    settings.setValue( "Maximised", isMaximized() );
+
+    if ( !isMaximized() )
+    {
+        settings.setValue( "Pos", pos() );
+        settings.setValue( "Size", size() );
+    }
+
+    settings.endGroup();
+}
+
+void MainWindow::readPositionSettings()
+{
+    QSettings settings( "Alasdair Craig", "Tag a File" );
+
+    settings.beginGroup( "MainWindow" );
+    restoreGeometry(settings.value( "Geometry", saveGeometry() ).toByteArray());
+    move(settings.value( "Pos", pos() ).toPoint());
+    resize(settings.value( "Size", size() ).toSize());
+
+    if ( settings.value( "Maximised", isMaximized() ).toBool() )
+        showMaximized();
+
+    settings.endGroup();
+}
+
+void MainWindow::closeEvent( QCloseEvent* )
+{
+    writePositionSettings();
 }
