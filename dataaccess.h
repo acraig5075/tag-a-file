@@ -17,6 +17,10 @@ public:
     QStringList GetTagList();
     QString GetItemContent(int id);
     QString GetTagTitle(int id);
+    int GetItemID(const QString &item);
+    int GetTagID(const QString &tag);
+    void SetItemContent(int id, const QString &content);
+    void SetTagTitle(int id, const QString &title);
 
     void RefreshSearchModel(QSqlQueryModel &model, const QStringList &tagList);
     void RefreshItemsModel(QSqlQueryModel &model);
@@ -40,9 +44,6 @@ private:
     void InsertMapping(int itemID, int tagID);
     void InsertMappings(int itemID, const QList<int> &tagIDs);
     void DeleteMappings(int itemID);
-
-    int GetItemID(const QString &item);
-    int GetTagID(const QString &tag);
 
 private:
     QSqlDatabase m_db;

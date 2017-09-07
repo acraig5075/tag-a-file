@@ -4,6 +4,7 @@
 #include <QSqlQueryModel>
 #include <QSqlRecord>
 #include <QMessageBox>
+#include <QInputDialog>
 
 
 BrowsePage::BrowsePage(DataAccess &dal, QWidget *parent) :
@@ -97,7 +98,30 @@ void BrowsePage::onSearchMenu()
 
 void BrowsePage::onEditMenu()
 {
-    QMessageBox::information(this, "Information", "This feature is not yet implemented.");
+    int id = getSelectedID();
+    bool ok = false;
+
+    if (ui->filesButton->isChecked())
+    {
+        QString oldValue = m_dal.GetItemContent(id);
+        QString newValue = QInputDialog::getText(this, "Rename Item", "Enter new value for item", QLineEdit::Normal, oldValue, &ok);
+        if (ok)
+            ok = ValidateNewItemContent(newValue);
+        if (ok)
+            m_dal.SetItemContent(id, newValue);
+    }
+    else
+    {
+        QString oldValue = m_dal.GetTagTitle(id);
+        QString newValue = QInputDialog::getText(this, "Rename Tag", "Enter new value for tag", QLineEdit::Normal, oldValue, &ok);
+        if (ok)
+            ok = ValidateNewTagTitle(newValue);
+        if (ok)
+            m_dal.SetTagTitle(id, newValue);
+    }
+
+    if (ok)
+        refreshTableView();
 }
 
 void BrowsePage::onDeleteMenu()
@@ -127,4 +151,49 @@ void BrowsePage::refreshTableView()
         m_dal.RefreshTagsModel(*m_tagsModel);
         ui->tableView->setModel(m_tagsModel);
     }
+}
+
+bool BrowsePage::ValidateNewItemContent(QString &content)
+{
+    if (content.isEmpty())
+    {
+        QMessageBox::warning(this, "Warning", "Illegal format. I expect a non-empty string.");
+        return false;
+    }
+
+    int id = m_dal.GetItemID(content);
+    if (id > 0)
+    {
+        QMessageBox::warning(this, "Warning", "This item is already in use.");
+        return false;
+    }
+
+    return true;
+}
+
+bool BrowsePage::ValidateNewTagTitle(QString &title)
+{
+    if (title.isEmpty())
+    {
+        QMessageBox::warning(this, "Warning", "Illegal format. I expect a non-empty string.");
+        return false;
+    }
+
+    title = title.replace(' ', '-');
+    title = title.toLower();
+    QRegExp rx("^[a-zA-Z0-9][a-zA-Z0-9 -]+$");
+    if (rx.indexIn(title) < 0)
+    {
+        QMessageBox::warning(this, "Warning", "Illegal format. I expect only alphanumeric characters and hyphens.");
+        return false;
+    }
+
+    int id = m_dal.GetTagID(title);
+    if (id > 0)
+    {
+        QMessageBox::warning(this, "Warning", QString("Tag %1 is already in use.").arg(title));
+        return false;
+    }
+
+    return true;
 }

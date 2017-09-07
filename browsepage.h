@@ -28,6 +28,8 @@ private slots:
 private:
     int getSelectedID();
     void refreshTableView();
+    bool ValidateNewItemContent(QString &content);
+    bool ValidateNewTagTitle(QString &title);
 
 signals:
     void searchTag(int);

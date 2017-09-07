@@ -275,3 +275,15 @@ void DataAccess::DeleteTag(int id)
         ExecQuery("END TRANSACTION");
     }
 }
+
+void DataAccess::SetItemContent(int id, const QString &content)
+{
+    QString update = QString("UPDATE `items` SET `content`='%1' WHERE `id`=%2").arg(content).arg(id);
+    ExecQuery(update);
+}
+
+void DataAccess::SetTagTitle(int id, const QString &title)
+{
+    QString update = QString("UPDATE `tags` SET `title`='%1' WHERE `id`=%2").arg(title).arg(id);
+    ExecQuery(update);
+}
