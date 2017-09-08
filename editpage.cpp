@@ -34,6 +34,12 @@ EditPage::~EditPage()
     delete ui;
 }
 
+void EditPage::setActive()
+{
+    ui->lineEdit->clear();
+    ui->tagList->clear();
+}
+
 void EditPage::on_browseButton_clicked()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Select File", "", "");

@@ -41,7 +41,10 @@ void MainWindow::tabChanged(int index)
 {
     switch (index)
     {
-    case 1: // searchPage
+    case 0: // edit page
+        m_editPage->setActive();
+        break;
+    case 1: // search page
         m_searchPage->setActive();
         break;
     case 2: // browse page
