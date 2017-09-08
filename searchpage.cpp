@@ -28,11 +28,14 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     updateResultView();
 
     QAction *clipboardAction = new QAction("Copy to clipboard", this);
+    QAction *searchAction = new QAction("Edit / update", this);
     ui->resultView->addAction(clipboardAction);
+    ui->resultView->addAction(searchAction);
 
     QObject::connect(ui->tagList, SIGNAL(tagListDeletion()), this, SLOT(updateResultView()));
     QObject::connect(ui->tagList, SIGNAL(tagListAddition()), this, SLOT(updateResultView()));
-    QObject::connect(clipboardAction, SIGNAL(triggered(bool)), this, SLOT(copyToClipboard()));
+    QObject::connect(clipboardAction, SIGNAL(triggered(bool)), this, SLOT(onClipboardMenu()));
+    QObject::connect(searchAction, SIGNAL(triggered(bool)), this, SLOT(onSearchMenu()));
 }
 
 SearchPage::~SearchPage()
@@ -88,10 +91,8 @@ void SearchPage::updateResultView()
     ui->resultView->setModel(m_resultsModel);
 }
 
-void SearchPage::copyToClipboard()
+QString SearchPage::getSelectedFilename()
 {
-    QString filename;
-
     QItemSelectionModel *selection = ui->resultView->selectionModel();
     if (selection && selection->hasSelection())
     {
@@ -100,11 +101,27 @@ void SearchPage::copyToClipboard()
         {
             QSqlRecord record = m_resultsModel->record(indices[0].row());
             QVariant data = record.value(0);
-            filename = data.toString();
+            return data.toString();
         }
     }
 
+    return "";
+}
+
+void SearchPage::onClipboardMenu()
+{
+    QString filename = getSelectedFilename();
+
     QApplication::clipboard()->setText(filename);
+}
+
+void SearchPage::onSearchMenu()
+{
+    QString filename = getSelectedFilename();
+
+    int itemID = m_dal.GetItemID(filename);
+
+    emit searchFile(itemID);
 }
 
 void SearchPage::searchTag(const QString &tag)

@@ -244,7 +244,15 @@ void DataAccess::RefreshItemsModel(QSqlQueryModel &model)
 
 void DataAccess::RefreshTagsModel(QSqlQueryModel &model)
 {
-    model.setQuery("SELECT `id`, `title` AS 'Tag' FROM `tags` ORDER BY `title`");
+    QString selectAll = "SELECT `id`, `title` AS 'Tag' FROM `tags` ORDER BY `title`";
+
+//    QString selectInUse = "SELECT tag_id, tags.title AS 'Tag', COUNT(item_id) AS 'Count' "
+//            "FROM item_tag_map, tags "
+//            "WHERE tag_id=tags.id "
+//            "GROUP BY tag_id "
+//            "ORDER BY title ";
+
+    model.setQuery(selectAll);
 }
 
 void DataAccess::DeleteItem(int id)

@@ -28,6 +28,7 @@ MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
 
     QObject::connect(ui->tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabChanged(int)));
+    QObject::connect(m_searchPage, SIGNAL(searchFile(int)), this, SLOT(onSearchFile(int)));
     QObject::connect(m_browsePage, SIGNAL(searchFile(int)), this, SLOT(onSearchFile(int)));
     QObject::connect(m_browsePage, SIGNAL(searchTag(int)), this, SLOT(onSearchTag(int)));
 }

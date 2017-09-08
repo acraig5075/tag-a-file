@@ -23,8 +23,17 @@ public:
 
 public slots:
     void updateResultView();
-    void copyToClipboard();
     void setActive();
+
+private slots:
+    void onClipboardMenu();
+    void onSearchMenu();
+
+signals:
+    void searchFile(int);
+
+private:
+    QString getSelectedFilename();
 
 private:
     Ui::SearchPage *ui;
