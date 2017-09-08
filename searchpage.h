@@ -29,7 +29,8 @@ public slots:
 private:
     Ui::SearchPage *ui;
     DataAccess &m_dal;
-    QSqlQueryModel *m_model = nullptr;
+    QSqlQueryModel *m_resultsModel = nullptr;
+    QSqlQueryModel *m_tagsModel = nullptr;
 };
 
 #endif // SEARCHPAGE_H

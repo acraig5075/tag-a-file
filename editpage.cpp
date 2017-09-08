@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QCompleter>
 #include <QFileSystemModel>
+#include <QSqlQueryModel>
 
 EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
@@ -11,9 +12,13 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     m_dal(dal)
 {
     ui->setupUi(this);
+
     ui->tagEdit->setBuddyList(ui->tagList);
-    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
     ui->tagEdit->setPlaceholderText("Enter to accept");
+
+    m_tagModel = new QSqlQueryModel(this);
+    m_dal.RefreshTagsModel(*m_tagModel);
+    ui->tagEdit->setTagCompleter(*m_tagModel);
 
     QFileSystemModel *model = new QFileSystemModel(this);
     QCompleter *completer = new QCompleter(model, this);
@@ -62,12 +67,13 @@ void EditPage::on_pushButton_clicked()
     QStringList tags = ui->tagList->toStringList();
 
     m_dal.InsertOrUpdate(item, tags);
+    m_dal.RefreshTagsModel(*m_tagModel);
 
     ui->lineEdit->clear();
     ui->tagEdit->clear();
     ui->tagList->clear();
     ui->lineEdit->setFocus();
-    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
+    ui->tagEdit->setTagCompleter(*m_tagModel);
     ui->pushButton->setText("Add");
 }
 

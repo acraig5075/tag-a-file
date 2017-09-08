@@ -94,13 +94,6 @@ QStringList DataAccess::GetTagsForItem(const QString &content)
     return ExecReader(string);
 }
 
-QStringList DataAccess::GetTagList()
-{
-    QString string = "SELECT `title` FROM `tags` ORDER BY `title` ASC";
-
-    return ExecReader(string);
-}
-
 void DataAccess::ExecQuery(const QString &string)
 {
     if (m_db.isOpen())

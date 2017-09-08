@@ -4,7 +4,7 @@
 #include <QWidget>
 
 class DataAccess;
-class QFileSystemModel;
+class QSqlQueryModel;
 class QCompleter;
 
 
@@ -31,6 +31,7 @@ private slots:
 private:
     Ui::EditPage *ui;
     DataAccess &m_dal;
+    QSqlQueryModel *m_tagModel = nullptr;
 };
 
 #endif // EDITPAGE_H

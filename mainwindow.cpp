@@ -6,7 +6,7 @@
 #include "dataaccess.h"
 #include <QSettings>
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
     QMainWindow(parent),

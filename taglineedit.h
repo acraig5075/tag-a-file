@@ -4,6 +4,7 @@
 
 class QWidget;
 class TagListWidget;
+class QSqlQueryModel;
 
 class TagLineEdit : public QLineEdit
 {
@@ -12,7 +13,7 @@ public:
     TagLineEdit(QWidget *parent);
 
     void setBuddyList(TagListWidget *buddyList);
-    void setTagCompleter(const QStringList &list);
+    void setTagCompleter(QSqlQueryModel &model);
 
 private slots:
     void onTextEdited(const QString &arg1);

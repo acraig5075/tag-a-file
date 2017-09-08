@@ -14,7 +14,6 @@ public:
     void InsertOrUpdate(const QString &item, const QStringList &tagList);
 
     QStringList GetTagsForItem(const QString &content);
-    QStringList GetTagList();
     QString GetItemContent(int id);
     QString GetTagTitle(int id);
     int GetItemID(const QString &item);

@@ -13,14 +13,18 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     m_dal(dal)
 {
     ui->setupUi(this);
+
+    m_tagsModel = new QSqlQueryModel(this);
+    m_dal.RefreshTagsModel(*m_tagsModel);
+
     ui->tagEdit->setBuddyList(ui->tagList);
-    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
+    ui->tagEdit->setTagCompleter(*m_tagsModel);
     ui->resultView->horizontalHeader()->setStretchLastSection(true);
     ui->resultView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->resultView->setContextMenuPolicy(Qt::ActionsContextMenu);
     ui->tagEdit->setPlaceholderText("Enter to accept");
 
-    m_model = new QSqlQueryModel(this);
+    m_resultsModel = new QSqlQueryModel(this);
     updateResultView();
 
     QAction *clipboardAction = new QAction("Copy to clipboard", this);
@@ -38,11 +42,12 @@ SearchPage::~SearchPage()
 
 void SearchPage::setActive()
 {
-    m_model->clear();
+    m_dal.RefreshTagsModel(*m_tagsModel);
+    m_resultsModel->clear();
     ui->tagEdit->clear();
     ui->tagList->clear();
-    ui->tagEdit->setTagCompleter(m_dal.GetTagList());
-    ui->resultView->setModel(m_model);
+    ui->tagEdit->setTagCompleter(*m_tagsModel);
+    ui->resultView->setModel(m_resultsModel);
     ui->resultsLabel->setText("Results:");
 }
 
@@ -78,9 +83,9 @@ void SearchPage::updateResultView()
 
     ui->resultsLabel->setText(resultsDescription(tags));
 
-    m_dal.RefreshSearchModel(*m_model, tags);
+    m_dal.RefreshSearchModel(*m_resultsModel, tags);
 
-    ui->resultView->setModel(m_model);
+    ui->resultView->setModel(m_resultsModel);
 }
 
 void SearchPage::copyToClipboard()
@@ -93,7 +98,7 @@ void SearchPage::copyToClipboard()
         QModelIndexList indices = selection->selectedRows();
         if (indices.size() > 0)
         {
-            QSqlRecord record = m_model->record(indices[0].row());
+            QSqlRecord record = m_resultsModel->record(indices[0].row());
             QVariant data = record.value(0);
             filename = data.toString();
         }
