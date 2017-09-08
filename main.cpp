@@ -7,6 +7,8 @@ static const QString styleSheet =
         "  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 2, stop: 0 #C0C0C0, stop: 0.8 #FFFFFF); "
         "}"
 
+        "QLabel#titleLabel { font: bold 12px; }"
+
         "QTabWidget::pane { "
         "  border: 2px solid #BB7365; "
         "  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 2, stop: 0 #DEADA1, stop: 1 #FFFFFF); "
@@ -85,6 +87,11 @@ static const QString styleSheet =
         "QTableView { background: lightGray }"
         "QTableView::item { background-color: white }"
         "QTableView::item:selected { background-color: palette(highlight); }"
+
+        "QHeaderView::section {"
+        "  padding: 2px; "
+        "  border: 1px solid lightGray; "
+        "}"
         ;
 
 
