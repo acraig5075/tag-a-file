@@ -18,6 +18,9 @@ public:
     explicit BrowsePage(DataAccess &dal, QWidget *parent = 0);
     ~BrowsePage();
 
+public slots:
+    void setActive();
+
 private slots:
     void on_filesButton_clicked();
     void on_tagsButton_clicked();

@@ -39,9 +39,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::tabChanged(int index)
 {
-    if (index == 1) // searchPage
+    switch (index)
     {
+    case 1: // searchPage
         m_searchPage->setActive();
+        break;
+    case 2: // browse page
+        m_browsePage->setActive();
+        break;
     }
 }
 

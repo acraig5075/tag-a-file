@@ -45,6 +45,12 @@ BrowsePage::~BrowsePage()
     delete ui;
 }
 
+void BrowsePage::setActive()
+{
+    m_dal.RefreshItemsModel(*m_filesModel);
+    m_dal.RefreshTagsModel(*m_tagsModel);
+}
+
 void BrowsePage::on_filesButton_clicked()
 {
     ui->filesButton->setChecked(true);
