@@ -77,7 +77,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Tag list:</string>
+         <string>Tags list:</string>
         </property>
        </widget>
       </item>
@@ -101,7 +101,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="resultsLabel">
         <property name="text">
          <string>Results:</string>
         </property>

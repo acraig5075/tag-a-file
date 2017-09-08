@@ -18,6 +18,7 @@ SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :
     ui->resultView->horizontalHeader()->setStretchLastSection(true);
     ui->resultView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->resultView->setContextMenuPolicy(Qt::ActionsContextMenu);
+    ui->tagEdit->setPlaceholderText("Enter to accept");
 
     m_model = new QSqlQueryModel(this);
     updateResultView();
@@ -42,11 +43,40 @@ void SearchPage::setActive()
     ui->tagList->clear();
     ui->tagEdit->setTagCompleter(m_dal.GetTagList());
     ui->resultView->setModel(m_model);
+    ui->resultsLabel->setText("Results:");
+}
+
+QString resultsDescription(const QStringList &tags)
+{
+    QString description;
+
+    if (tags.isEmpty())
+    {
+        description = "Results:";
+    }
+    else
+    {
+        description = "Results matching ";
+
+        for (int i = 0; i < tags.size(); ++i)
+        {
+            if (i == 0)
+                description += tags[0];
+            else
+                description += QString(" AND %1").arg(tags[i]);
+        }
+
+        description += ":";
+    }
+
+    return description;
 }
 
 void SearchPage::updateResultView()
 {
     QStringList tags = ui->tagList->toStringList();
+
+    ui->resultsLabel->setText(resultsDescription(tags));
 
     m_dal.RefreshSearchModel(*m_model, tags);
 

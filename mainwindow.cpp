@@ -6,6 +6,7 @@
 #include "dataaccess.h"
 #include <QSettings>
 
+#define VERSION "1.0"
 
 MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
     QMainWindow(parent),
@@ -14,7 +15,7 @@ MainWindow::MainWindow(DataAccess &dal, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("Tag a File");
+    setWindowTitle(QString("Tag a File %1").arg(VERSION));
 
     m_editPage = new EditPage(m_dal, this);
     m_searchPage = new SearchPage(m_dal, this);

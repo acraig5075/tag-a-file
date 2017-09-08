@@ -13,6 +13,7 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     ui->setupUi(this);
     ui->tagEdit->setBuddyList(ui->tagList);
     ui->tagEdit->setTagCompleter(m_dal.GetTagList());
+    ui->tagEdit->setPlaceholderText("Enter to accept");
 
     QFileSystemModel *model = new QFileSystemModel(this);
     QCompleter *completer = new QCompleter(model, this);

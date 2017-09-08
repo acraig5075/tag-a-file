@@ -78,7 +78,7 @@
              </sizepolicy>
             </property>
             <property name="placeholderText">
-             <string/>
+             <string>Enter to accept</string>
             </property>
            </widget>
           </item>
@@ -102,7 +102,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Tag list:</string>
+         <string>Tags list:</string>
         </property>
        </widget>
       </item>

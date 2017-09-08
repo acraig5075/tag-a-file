@@ -56,7 +56,6 @@ void TagLineEdit::onReturnPressed()
         {
             m_buddyList->addTagItem(value);
             clear();
-            setFocus();
         }
     }
 }
