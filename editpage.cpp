@@ -26,6 +26,9 @@ EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     completer->setModelSorting(QCompleter::CaseSensitivelySortedModel);
     ui->lineEdit->setCompleter(completer);
 
+    QAction *browseAction = ui->lineEdit->addAction(QIcon(":/file-browse.png"), QLineEdit::TrailingPosition);
+
+    QObject::connect(browseAction, SIGNAL(triggered()), this, SLOT(onFileBrowse()));
     QObject::connect(ui->lineEdit, SIGNAL(returnPressed()), this, SLOT(resetTagList()));
 }
 
@@ -40,7 +43,7 @@ void EditPage::setActive()
     ui->tagList->clear();
 }
 
-void EditPage::on_browseButton_clicked()
+void EditPage::onFileBrowse()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Select File", "", "");
 

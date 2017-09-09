@@ -24,10 +24,9 @@ public:
     void editContent(const QString &content);
 
 private slots:
-    void on_browseButton_clicked();
-    void on_pushButton_clicked();
-
+    void onFileBrowse();
     void resetTagList();
+    void on_pushButton_clicked();
 
 private:
     Ui::EditPage *ui;

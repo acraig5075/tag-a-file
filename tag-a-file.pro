@@ -33,3 +33,6 @@ FORMS    += mainwindow.ui \
     editpage.ui \
     searchpage.ui \
     browsepage.ui
+
+RESOURCES += \
+    assets.qrc

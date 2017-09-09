@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>file-browse.png</file>
+        <file>price-tag.png</file>
+    </qresource>
+</RCC>
