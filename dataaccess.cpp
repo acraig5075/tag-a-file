@@ -15,7 +15,10 @@ DataAccess::DataAccess(const QString dbname)
 void DataAccess::OpenOrCreate()
 {
     m_db.setDatabaseName(m_dbname);
-    m_db.open();
+    bool ok = m_db.open();
+
+    if (!ok)
+        QMessageBox::critical(nullptr, "Error opening database", m_db.lastError().text());
 
     CreateItemsTable();
     CreateTagsTable();
