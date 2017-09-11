@@ -22,7 +22,15 @@ void TagListWidget::showContextMenu(const QPoint &pos)
 
 void TagListWidget::addTagItem(const QString &tag)
 {
-    this->addItem(new QListWidgetItem(QIcon(":/price-tag.png"), tag, this));
+    addItem(new QListWidgetItem(QIcon(":/price-tag.png"), tag, this));
+
+    emit tagListAddition();
+}
+
+void TagListWidget::addTagItems(const QStringList &tags)
+{
+    for (const auto tag : tags)
+        addItem(new QListWidgetItem(QIcon(":/price-tag.png"), tag, this));
 
     emit tagListAddition();
 }

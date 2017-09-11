@@ -10,6 +10,7 @@ public:
     explicit TagListWidget(QWidget *parent = 0);
 
     void addTagItem(const QString &tag);
+    void addTagItems(const QStringList &tags);
 
     QStringList toStringList();
 

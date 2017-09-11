@@ -63,7 +63,7 @@ void EditPage::resetTagList()
     if (!filename.isEmpty())
     {
         QStringList tags = m_dal.GetTagsForItem(filename);
-        ui->tagList->addItems(tags);
+        ui->tagList->addTagItems(tags);
 
         if (!tags.isEmpty())
             ui->pushButton->setText("Update");
