@@ -5,6 +5,7 @@
 #include <QSqlQueryModel>
 #include <QSqlRecord>
 #include <QClipboard>
+#include <QAction>
 
 
 SearchPage::SearchPage(DataAccess &dal, QWidget *parent) :

@@ -5,6 +5,7 @@
 #include <QSqlRecord>
 #include <QMessageBox>
 #include <QInputDialog>
+#include <QAction>
 
 
 BrowsePage::BrowsePage(DataAccess &dal, QWidget *parent) :

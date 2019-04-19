@@ -5,6 +5,7 @@
 #include <QCompleter>
 #include <QFileSystemModel>
 #include <QSqlQueryModel>
+#include <QAction>
 
 EditPage::EditPage(DataAccess &dal, QWidget *parent) :
     QWidget(parent),
